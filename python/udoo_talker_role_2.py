@@ -98,6 +98,6 @@ with serial.Serial('/dev/ttyMCC', 115200, timeout=0) as ser:
             'sensor_id': 9,
             'measure': measure
     }
-    r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/7/data", data=payload_h)
+    r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/9/data", data=payload_h)
     sleep(0.125)
     print payload_h
