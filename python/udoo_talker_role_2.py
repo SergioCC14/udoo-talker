@@ -74,7 +74,7 @@ while True:
   }
   r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/6/data", data=payload_f)
   sleep(0.125)
-  print payload_e
+  print payload_f
 
 
   payload_g = {
@@ -83,5 +83,5 @@ while True:
   }
   r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/7/data", data=payload_g)
   sleep(0.125)
-  print payload_e
+  print payload_g
   
