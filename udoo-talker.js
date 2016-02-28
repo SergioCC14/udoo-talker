@@ -8,7 +8,19 @@ var serialPort = new SerialPort('/dev/ttyMCC', {
   baudrate: 115200,
 });
 
+process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+function exitHandler() {
+  serialPort.close();
+}
+
 serialPort.on('open', function() {
+  serialPort.on('open', function() {
+    console.log('Serial opened');
+  });
+  serialPort.on('error', function(err) {
+    console.error('Error opening serial', err);
+  });
   serialPort.on('data', function(data) {
     //              console.log('data received: ' + data);
     if (data) {
