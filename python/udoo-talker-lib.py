@@ -6,7 +6,6 @@ def read_file(path):
   return data
 
 
-
 def split_data(data, name):
   dr = data.replace("\n", "").split(',')
   
@@ -15,3 +14,4 @@ def split_data(data, name):
     (name + '-y'): dr[1]
     (name + '-z'): dr[2]
   }
+
