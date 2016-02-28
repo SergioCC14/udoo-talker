@@ -33,7 +33,7 @@ function put(data, callback) {
 }
 
 function getSensorData() {
-  console.log([{
+  return [{
     udoo_id: 1,
     measure: gyroscopic.data(),
   }, {
@@ -45,11 +45,12 @@ function getSensorData() {
   }, {
     udoo_id: 4,
     measure: lastDistance,
-  }]);
+  }];
 }
 
 // Main loop
 (function loop() {
-  put(getSensorData());
-  setTimeout(loop, 1000);
+  console.log(getSensorData());
+  //      put(getSensorData());
+  setTimeout(loop, 300);
 }());
