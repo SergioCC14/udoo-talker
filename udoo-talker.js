@@ -8,25 +8,22 @@ var serialPort = new SerialPort('/dev/ttyMCC', {
   baudrate: 115200,
 });
 
-process.on('SIGINT', exitHandler.bind(null, { exit: true }));
 
-function exitHandler() {
-  serialPort.close();
-}
 
 serialPort.on('open', function() {
-  serialPort.on('open', function() {
-    console.log('Serial opened');
-  });
+  console.log('Open port');
+  process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+  function exitHandler() {
+    serialPort.close();
+  }
   serialPort.on('error', function(err) {
     console.error('Error opening serial', err);
   });
   serialPort.on('data', function(data) {
-    //              console.log('data received: ' + data);
     if (data) {
       lastDistance = data.toString();
     }
-    lastDistance = data;
   });
 });
 
@@ -37,7 +34,6 @@ var URL = '172.16.3.201/sensors/';
 var gyroscopic = neo.sensors.Gyroscope;
 var magnetometer = neo.sensors.Magnetometer;
 var accelerometer = neo.sensors.Accelerometer;
-var real_path = '/sys/class/gpio/gpio174';
 
 function put(data, callback) {
   request({
@@ -63,7 +59,7 @@ function getSensorData() {
   }];
 }
 
-// Main loop
+/// Main loop
 (function loop() {
   console.log(getSensorData());
   //      put(getSensorData());
