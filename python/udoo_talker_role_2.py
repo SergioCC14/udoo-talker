@@ -1,5 +1,6 @@
 import requests
 import json
+import serial
 from time import sleep
 
 accelerometter_path = '/sys/class/misc/FreescaleAccelerometer/data' 
