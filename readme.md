@@ -26,14 +26,15 @@ Este programa lanzará el log en un fichero definido por el tipo de placa. En nu
 Si queremos leerlo desde consola buscamos ese fichero y lo leemos con minicon, con un buffer de 96000. (Lanzar con sudo)
 
 
-Parte con NodeJS
+
+Opción 1: Parte con NodeJS (Coming Soon)
 --
 Lanzamos un programa en NodeJS para leer los datos nativos de UDOO
 
 La localización de los valores del Acelerometro, el Magnometro y el giroscipio son los ficheros:
  '/sys/class/misc/FreescaleAccelerometer/data' 
  '/sys/class/misc/FreescaleMagnetometer/data' 
-'/sys/class/misc/FreescaleGyroscope/data'
+ '/sys/class/misc/FreescaleGyroscope/data'
 
 La conversión es real y contiene valores no enteros (diferente al caso de las señales digitales)
 
@@ -42,8 +43,29 @@ Utilizamos una libreria que se llama udooneo (https://raw.githubusercontent.com/
 Si pudieramos obtener señales analógicas leyendo ficheros lo haríamos, pero la lectura de los valores en "/sys/class/gpio/gpio174" solo da valores 1 o 0 (señales digitales). Por eso utilizamos la parte Arduino.
 
 
+Opción 2: Parte con Python
+--
+Lanzamos un programa en Python para leer los datos nativos de UDOO.
+
+En este caso, cada placa tiene un rol definido, en el cual manda únicamente datos de unos sensores determinados
+La localización de los valores del Acelerometro, el Magnometro y el giroscipio son los ficheros:
+ '/sys/class/misc/FreescaleAccelerometer/data' 
+ '/sys/class/misc/FreescaleMagnetometer/data' 
+ '/sys/class/misc/FreescaleGyroscope/data'
+
+Además, obtenemos del log de Arduino (explicado antes) la información de las señales analogicas (en este caso el fichero está en /dev/ttyMCC). Lo lee como un buffer a 9600.
+
+Todos estos datos se mandan con una petición PUT con la forma:
+    payload_a = {
+      'sensor_id': 1,
+      'measure': split_data(measure_accelerometter)[0]
+    }
+    r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/1/data", data=payload_a)
+    sleep(0.125)
+
+
 Conexión con la API
-_
+--
 Cada X tiempo lanzamos una petición a la API con la información obtenida. Node se encarga de juntarlo todo.
 
 
