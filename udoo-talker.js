@@ -1,35 +1,7 @@
 // Node modules
 var request = require('request');
 var neo = require('./udooneo');
-var SerialPort = require('serialport').SerialPort;
-var lastDistance;
-
-var serialPort = new SerialPort('/dev/ttyMCC', {
-  baudrate: 115200,
-});
-
-
-
-serialPort.on('open', function() {
-  console.log('Open port');
-  process.on('SIGINT', exitHandler.bind(null, { exit: true }));
-
-  function exitHandler() {
-    serialPort.close();
-  }
-  serialPort.on('error', function(err) {
-    console.error('Error opening serial', err);
-  });
-  serialPort.on('data', function(data) {
-    if (data) {
-      lastDistance = data.toString();
-    }
-  });
-});
-
-
-
-var URL = '172.16.3.201/sensors/';
+var URL = 'http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/';
 
 var gyroscopic = neo.sensors.Gyroscope;
 var magnetometer = neo.sensors.Magnetometer;
@@ -53,9 +25,6 @@ function getSensorData() {
   }, {
     udoo_id: 3,
     measure: accelerometer.data(),
-  }, {
-    udoo_id: 4,
-    measure: lastDistance,
   }];
 }
 
