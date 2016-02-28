@@ -10,7 +10,10 @@ var serialPort = new SerialPort('/dev/ttyMCC', {
 
 serialPort.on('open', function() {
   serialPort.on('data', function(data) {
-    console.log('data received: ' + data);
+    //              console.log('data received: ' + data);
+    if (data) {
+      lastDistance = data.toString();
+    }
     lastDistance = data;
   });
 });
@@ -52,5 +55,5 @@ function getSensorData() {
 (function loop() {
   console.log(getSensorData());
   //      put(getSensorData());
-  setTimeout(loop, 300);
+  setTimeout(loop, 1000);
 }());
