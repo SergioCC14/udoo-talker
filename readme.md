@@ -63,6 +63,7 @@ Todos estos datos se mandan con una petición PUT con la forma:
     r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/1/data", data=payload_a)
     sleep(0.125)
 
+Para esta parte existe un fichero faker.py, que simula peticiones.
 
 Conexión con la API
 --
