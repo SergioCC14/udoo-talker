@@ -1,5 +1,6 @@
-# import requests
+import requests
 from time import sleep
+
 fakte_data = [
   {'sensor_id': 1, 'measure': '20'},
   {'sensor_id': 2, 'measure': '-528'},
@@ -146,6 +147,6 @@ fakte_data = [
 ]
 
 for i in fakte_data:
-  r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/"+ i['sensor_id']+ "/data", data=i)
+  r = requests.put("http://ec2-52-17-73-59.eu-west-1.compute.amazonaws.com:3000/sensors/"+ str(i['sensor_id'])+ "/data", data=i)
   sleep(0.125)
   print i
