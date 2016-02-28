@@ -24,9 +24,9 @@ def split_data(data):
 while True:
   payload = {}
 
-  measure_accelerometter = read_file(accelerometter_path).replace("\n", "")
+  measure_accelerometter = read_file(accelerometter_path)
   measure_magnetometer = read_file(magnetometer_path)
-  measure_gyroscope  = read_file(gyroscope_path)
+  measure_gyroscope  = read_file(gyroscope_path).replace("\n", "")
   
   payload_a = {
     'sensor_id': 1,
